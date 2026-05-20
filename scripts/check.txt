@@ -1,0 +1,178 @@
+[Resized] DataReOrganize_12_10bit.jpg: (6683, 6319) -> (3330, 3148)
+[Resized] DataReOrganize_7_12bit.jpg: (3860, 3819) -> (3255, 3220)
+[Resized] DataReOrganize_16_11bit.jpg: (9602, 8672) -> (3407, 3077)
+[Resized] DataReOrganize_14_10bit.jpg: (8038, 7807) -> (3285, 3191)
+[Resized] DataReOrganize_7_8bit.jpg: (3796, 3819) -> (3228, 3247)
+[Resized] DataReOrganize_6_12bit.jpg: (3315, 3584) -> (3114, 3366)
+[Resized] DataReOrganize_11_11bit.jpg: (6379, 5482) -> (3493, 3001)
+[Resized] DataReOrganize_15_6bit.jpg: (8467, 7418) -> (3459, 3030)
+[Resized] DataReOrganize_11_12bit.jpg: (6379, 5482) -> (3493, 3001)
+[Resized] DataReOrganize_7_4bit.jpg: (3783, 3819) -> (3222, 3253)
+[Resized] DataReOrganize_7_15bit.jpg: (3860, 3819) -> (3255, 3220)
+[Keep] DataReOrganize_4_12bit.jpg does not need resizing, saved as is.
+[Keep] DataReOrganize_4_4bit.jpg does not need resizing, saved as is.
+[Keep] DataReOrganize_5_13bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_11_8bit.jpg: (6265, 5482) -> (3461, 3029)
+[Resized] DataReOrganize_8_4bit.jpg: (4350, 4503) -> (3182, 3294)
+[Resized] DataReOrganize_16_4bit.jpg: (9400, 8672) -> (3371, 3110)
+[Resized] DataReOrganize_8_9bit.jpg: (4350, 4503) -> (3182, 3294)
+[Resized] DataReOrganize_6_8bit.jpg: (3250, 3584) -> (3083, 3400)
+[Resized] DataReOrganize_13_12bit.jpg: (7306, 6702) -> (3380, 3101)
+[Resized] DataReOrganize_11_7bit.jpg: (6265, 5482) -> (3461, 3029)
+[Resized] DataReOrganize_10_15bit.jpg: (5644, 5388) -> (3314, 3163)
+[Keep] DataReOrganize_4_5bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_14_4bit.jpg: (8013, 7807) -> (3280, 3196)
+[Resized] DataReOrganize_9_12bit.jpg: (4994, 4573) -> (3383, 3098)
+[Resized] DataReOrganize_8_16bit.jpg: (4427, 4503) -> (3210, 3265)
+[Resized] DataReOrganize_12_9bit.jpg: (6683, 6319) -> (3330, 3148)
+[Resized] DataReOrganize_15_10bit.jpg: (8492, 7418) -> (3464, 3026)
+[Resized] DataReOrganize_7_6bit.jpg: (3796, 3819) -> (3228, 3247)
+[Resized] DataReOrganize_10_10bit.jpg: (5542, 5388) -> (3284, 3192)
+[Keep] DataReOrganize_4_6bit.jpg does not need resizing, saved as is.
+[Keep] DataReOrganize_4_8bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_12_4bit.jpg: (6683, 6319) -> (3330, 3148)
+[Resized] DataReOrganize_8_8bit.jpg: (4350, 4503) -> (3182, 3294)
+[Resized] DataReOrganize_13_9bit.jpg: (7154, 6702) -> (3345, 3134)
+[Keep] DataReOrganize_4_7bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_6_16bit.jpg: (3315, 3584) -> (3114, 3366)
+[Resized] DataReOrganize_16_13bit.jpg: (9602, 8672) -> (3407, 3077)
+[Resized] DataReOrganize_10_14bit.jpg: (5644, 5388) -> (3314, 3163)
+[Resized] DataReOrganize_9_8bit.jpg: (4904, 4573) -> (3353, 3126)
+[Resized] DataReOrganize_14_8bit.jpg: (8038, 7807) -> (3285, 3191)
+[Keep] DataReOrganize_4_13bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_16_16bit.jpg: (9602, 8672) -> (3407, 3077)
+[Resized] DataReOrganize_15_15bit.jpg: (8656, 7418) -> (3497, 2997)
+[Resized] DataReOrganize_6_13bit.jpg: (3315, 3584) -> (3114, 3366)
+[Keep] DataReOrganize_5_12bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_15_9bit.jpg: (8492, 7418) -> (3464, 3026)
+[Resized] DataReOrganize_7_16bit.jpg: (3860, 3819) -> (3255, 3220)
+[Resized] DataReOrganize_12_7bit.jpg: (6683, 6319) -> (3330, 3148)
+[Keep] DataReOrganize_4_14bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_10_5bit.jpg: (5542, 5388) -> (3284, 3192)
+[Resized] DataReOrganize_12_13bit.jpg: (6823, 6319) -> (3364, 3116)
+[Resized] DataReOrganize_16_10bit.jpg: (9425, 8672) -> (3375, 3106)
+[Resized] DataReOrganize_11_16bit.jpg: (6392, 5482) -> (3496, 2998)
+[Resized] DataReOrganize_16_14bit.jpg: (9602, 8672) -> (3407, 3077)
+[Resized] DataReOrganize_15_16bit.jpg: (8656, 7418) -> (3497, 2997)
+[Resized] DataReOrganize_10_13bit.jpg: (5644, 5388) -> (3314, 3163)
+[Resized] DataReOrganize_16_7bit.jpg: (9425, 8672) -> (3375, 3106)
+[Resized] DataReOrganize_7_11bit.jpg: (3860, 3819) -> (3255, 3220)
+[Resized] DataReOrganize_13_7bit.jpg: (7154, 6702) -> (3345, 3134)
+[Resized] DataReOrganize_6_4bit.jpg: (3238, 3584) -> (3077, 3406)
+[Resized] DataReOrganize_7_13bit.jpg: (3860, 3819) -> (3255, 3220)
+[Resized] DataReOrganize_13_10bit.jpg: (7154, 6702) -> (3345, 3134)
+[Keep] DataReOrganize_4_16bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_12_14bit.jpg: (6823, 6319) -> (3364, 3116)
+[Keep] DataReOrganize_5_16bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_14_11bit.jpg: (8190, 7807) -> (3316, 3161)
+[Resized] DataReOrganize_6_14bit.jpg: (3315, 3584) -> (3114, 3366)
+[Resized] DataReOrganize_9_11bit.jpg: (4994, 4573) -> (3383, 3098)
+[Resized] DataReOrganize_7_10bit.jpg: (3796, 3819) -> (3228, 3247)
+[Resized] DataReOrganize_10_12bit.jpg: (5644, 5388) -> (3314, 3163)
+[Resized] DataReOrganize_11_6bit.jpg: (6265, 5482) -> (3461, 3029)
+[Resized] DataReOrganize_15_12bit.jpg: (8656, 7418) -> (3497, 2997)
+[Resized] DataReOrganize_8_5bit.jpg: (4350, 4503) -> (3182, 3294)
+[Resized] DataReOrganize_9_16bit.jpg: (4994, 4573) -> (3383, 3098)
+[Resized] DataReOrganize_7_9bit.jpg: (3796, 3819) -> (3228, 3247)
+[Resized] DataReOrganize_10_7bit.jpg: (5542, 5388) -> (3284, 3192)
+[Resized] DataReOrganize_14_9bit.jpg: (8038, 7807) -> (3285, 3191)
+[Resized] DataReOrganize_6_6bit.jpg: (3250, 3584) -> (3083, 3400)
+[Resized] DataReOrganize_9_14bit.jpg: (4994, 4573) -> (3383, 3098)
+[Resized] DataReOrganize_12_6bit.jpg: (6683, 6319) -> (3330, 3148)
+[Resized] DataReOrganize_6_9bit.jpg: (3250, 3584) -> (3083, 3400)
+[Resized] DataReOrganize_13_8bit.jpg: (7154, 6702) -> (3345, 3134)
+[Resized] DataReOrganize_11_14bit.jpg: (6379, 5482) -> (3493, 3001)
+[Keep] DataReOrganize_5_4bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_12_11bit.jpg: (6810, 6319) -> (3361, 3119)
+[Resized] DataReOrganize_8_10bit.jpg: (4350, 4503) -> (3182, 3294)
+[Resized] DataReOrganize_13_13bit.jpg: (7319, 6702) -> (3383, 3098)
+[Resized] DataReOrganize_16_9bit.jpg: (9425, 8672) -> (3375, 3106)
+[Resized] DataReOrganize_10_8bit.jpg: (5542, 5388) -> (3284, 3192)
+[Resized] DataReOrganize_13_16bit.jpg: (7319, 6702) -> (3383, 3098)
+[Resized] DataReOrganize_13_4bit.jpg: (7154, 6702) -> (3345, 3134)
+[Resized] DataReOrganize_9_9bit.jpg: (4904, 4573) -> (3353, 3126)
+[Keep] DataReOrganize_5_9bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_15_14bit.jpg: (8656, 7418) -> (3497, 2997)
+[Resized] DataReOrganize_10_9bit.jpg: (5542, 5388) -> (3284, 3192)
+[Resized] DataReOrganize_13_15bit.jpg: (7319, 6702) -> (3383, 3098)
+[Resized] DataReOrganize_9_6bit.jpg: (4904, 4573) -> (3353, 3126)
+[Keep] DataReOrganize_5_7bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_13_14bit.jpg: (7319, 6702) -> (3383, 3098)
+[Resized] DataReOrganize_12_16bit.jpg: (6835, 6319) -> (3367, 3113)
+[Resized] DataReOrganize_8_13bit.jpg: (4427, 4503) -> (3210, 3265)
+[Resized] DataReOrganize_9_13bit.jpg: (4994, 4573) -> (3383, 3098)
+[Resized] DataReOrganize_15_7bit.jpg: (8479, 7418) -> (3462, 3028)
+[Resized] DataReOrganize_15_8bit.jpg: (8492, 7418) -> (3464, 3026)
+[Resized] DataReOrganize_14_15bit.jpg: (8190, 7807) -> (3316, 3161)
+[Resized] DataReOrganize_7_14bit.jpg: (3860, 3819) -> (3255, 3220)
+[Resized] DataReOrganize_13_6bit.jpg: (7154, 6702) -> (3345, 3134)
+[Resized] DataReOrganize_11_13bit.jpg: (6379, 5482) -> (3493, 3001)
+[Resized] DataReOrganize_9_10bit.jpg: (4904, 4573) -> (3353, 3126)
+[Resized] DataReOrganize_8_14bit.jpg: (4427, 4503) -> (3210, 3265)
+[Resized] DataReOrganize_12_15bit.jpg: (6835, 6319) -> (3367, 3113)
+[Keep] DataReOrganize_4_10bit.jpg does not need resizing, saved as is.
+[Keep] DataReOrganize_5_10bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_10_11bit.jpg: (5644, 5388) -> (3314, 3163)
+[Keep] DataReOrganize_5_11bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_9_5bit.jpg: (4904, 4573) -> (3353, 3126)
+[Resized] DataReOrganize_16_12bit.jpg: (9602, 8672) -> (3407, 3077)
+[Resized] DataReOrganize_12_12bit.jpg: (6810, 6319) -> (3361, 3119)
+[Resized] DataReOrganize_14_5bit.jpg: (8013, 7807) -> (3280, 3196)
+[Resized] DataReOrganize_13_5bit.jpg: (7154, 6702) -> (3345, 3134)
+[Keep] DataReOrganize_5_5bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_10_4bit.jpg: (5542, 5388) -> (3284, 3192)
+[Resized] DataReOrganize_6_7bit.jpg: (3250, 3584) -> (3083, 3400)
+[Resized] DataReOrganize_16_8bit.jpg: (9425, 8672) -> (3375, 3106)
+[Resized] DataReOrganize_6_11bit.jpg: (3315, 3584) -> (3114, 3366)
+[Resized] DataReOrganize_16_15bit.jpg: (9602, 8672) -> (3407, 3077)
+[Resized] DataReOrganize_16_6bit.jpg: (9400, 8672) -> (3371, 3110)
+[Resized] DataReOrganize_9_15bit.jpg: (4994, 4573) -> (3383, 3098)
+[Resized] DataReOrganize_10_16bit.jpg: (5644, 5388) -> (3314, 3163)
+[Resized] DataReOrganize_11_4bit.jpg: (6265, 5482) -> (3461, 3029)
+[Resized] DataReOrganize_6_5bit.jpg: (3238, 3584) -> (3077, 3406)
+[Resized] DataReOrganize_8_15bit.jpg: (4427, 4503) -> (3210, 3265)
+[Resized] DataReOrganize_16_5bit.jpg: (9400, 8672) -> (3371, 3110)
+[Resized] DataReOrganize_6_10bit.jpg: (3263, 3584) -> (3089, 3393)
+[Resized] DataReOrganize_8_11bit.jpg: (4427, 4503) -> (3210, 3265)
+[Resized] DataReOrganize_8_6bit.jpg: (4350, 4503) -> (3182, 3294)
+[Keep] DataReOrganize_5_6bit.jpg does not need resizing, saved as is.
+[Keep] DataReOrganize_5_15bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_15_4bit.jpg: (8467, 7418) -> (3459, 3030)
+[Resized] DataReOrganize_14_14bit.jpg: (8190, 7807) -> (3316, 3161)
+[Resized] DataReOrganize_13_11bit.jpg: (7294, 6702) -> (3378, 3103)
+[Resized] DataReOrganize_12_8bit.jpg: (6683, 6319) -> (3330, 3148)
+[Resized] DataReOrganize_11_9bit.jpg: (6265, 5482) -> (3461, 3029)
+[Resized] DataReOrganize_9_4bit.jpg: (4904, 4573) -> (3353, 3126)
+[Resized] DataReOrganize_15_11bit.jpg: (8656, 7418) -> (3497, 2997)
+[Resized] DataReOrganize_12_5bit.jpg: (6683, 6319) -> (3330, 3148)
+[Resized] DataReOrganize_14_6bit.jpg: (8013, 7807) -> (3280, 3196)
+[Resized] DataReOrganize_7_5bit.jpg: (3796, 3819) -> (3228, 3247)
+[Resized] DataReOrganize_8_12bit.jpg: (4427, 4503) -> (3210, 3265)
+[Resized] DataReOrganize_8_7bit.jpg: (4350, 4503) -> (3182, 3294)
+[Keep] DataReOrganize_4_9bit.jpg does not need resizing, saved as is.
+[Keep] DataReOrganize_5_8bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_14_12bit.jpg: (8190, 7807) -> (3316, 3161)
+[Resized] DataReOrganize_14_7bit.jpg: (8013, 7807) -> (3280, 3196)
+[Keep] DataReOrganize_5_14bit.jpg does not need resizing, saved as is.
+[Keep] DataReOrganize_4_15bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_14_13bit.jpg: (8190, 7807) -> (3316, 3161)
+[Resized] DataReOrganize_15_5bit.jpg: (8467, 7418) -> (3459, 3030)
+[Resized] DataReOrganize_6_15bit.jpg: (3315, 3584) -> (3114, 3366)
+[Resized] DataReOrganize_11_15bit.jpg: (6392, 5482) -> (3496, 2998)
+[Resized] DataReOrganize_9_7bit.jpg: (4904, 4573) -> (3353, 3126)
+[Resized] DataReOrganize_11_10bit.jpg: (6265, 5482) -> (3461, 3029)
+[Resized] DataReOrganize_10_6bit.jpg: (5542, 5388) -> (3284, 3192)
+[Keep] DataReOrganize_4_11bit.jpg does not need resizing, saved as is.
+[Resized] DataReOrganize_11_5bit.jpg: (6265, 5482) -> (3461, 3029)
+[Resized] DataReOrganize_7_7bit.jpg: (3796, 3819) -> (3228, 3247)
+[Resized] DataReOrganize_15_13bit.jpg: (8656, 7418) -> (3497, 2997)
+[Resized] DataReOrganize_14_16bit.jpg: (8190, 7807) -> (3316, 3161)
+
+# Generate output token IDs using sampling
+    generate_ids = model.generate(
+        **inputs,
+        max_new_tokens=4096, # 22bit加法器 4096 tokens 足够表达，防止 8192 陷入死循环太久
+        temperature=0.1,     # 强烈建议降低到 0.1 或 0.2！写硬件代码需要精准，越低越不容易死循环
+        top_p=0.9,
+        do_sample=True       # 如果想追求完全的确定性，也可以直接改成 do_sample=False（关闭采样）
+    )

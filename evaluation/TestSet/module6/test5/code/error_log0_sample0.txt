@@ -1,0 +1,35 @@
+--- Original Failed Code ---
+module C_Sel_A_19bit #(
+    parameter width=19
+)(
+    input wire [width:1] A,
+    input wire [width:1] B,
+    input wire cin,
+    output wire [width:1] S,
+    output wire cout
+);
+    wire c16;
+    C_Sel_A_16bit #(.width(16)) u0 (
+        .A(A[16:1]),
+        .B(B[16:1]),
+        .cin(cin),
+        .S(S[16:1]),
+        .cout(c16)
+    );
+    C_Sel_A_3bit #(.width(3)) u1 (
+        .A(A[19:17]),
+        .B(B[19:17]),
+        .cin(c16),
+        .S(S[19:17]),
+        .cout(cout)
+    );
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmpr5x9z7zk.v:11: error: Unknown module type: C_Sel_A_16bit
+/tmp/tmpr5x9z7zk.v:18: error: Unknown module type: C_Sel_A_3bit
+3 error(s) during elaboration.
+*** These modules were missing:
+        C_Sel_A_16bit referenced 1 times.
+        C_Sel_A_3bit referenced 1 times.
+***

@@ -1,0 +1,33 @@
+--- Original Failed Code ---
+module PPA_Sklansky_17bit #(
+    parameter width=17
+) (
+    input wire [width-1:0] A,
+    input wire [width-1:0] B,
+    input wire cin,
+    output wire [width-1:0] S,
+    output wire cout
+);
+    wire [width-1:0] p, g;
+    wire [width-1:0] P, G;
+    wire [width:0] c_temp;
+
+    assign c_temp[0] = cin;
+    assign p = A ^ B;
+    assign g = A & B;
+
+    genvar i;
+    generate
+        for (i = 1; i < width + 1; i = i + 1) begin
+            assign P[i] = p[i-1];
+            assign G[i] = g[i-1] | (p[i-1] & p[i-2] & ... & p[0]);
+        end
+    endgenerate
+
+    assign S = P ^ c_temp;
+    assign cout = G[width];
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmpxgvfiv1a.v:22: syntax error
+/tmp/tmpxgvfiv1a.v:22: error: Syntax error in continuous assignment

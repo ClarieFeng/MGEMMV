@@ -1,0 +1,30 @@
+# local large model files
+MGEMMV-Llama-11b/
+*/MGEMMV-Llama-11b/
+
+# model weight files
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.gguf
+*.onnx
+
+# generated Verilog / simulation files
+*.vvp
+out.txt
+llm_raw*.txt
+llm_code*.txt
+llm_code*.v
+
+# Python cache
+__pycache__/
+*.pyc
+
+# logs
+*.log
+
+# system / editor files
+.vscode/
+.DS_Store

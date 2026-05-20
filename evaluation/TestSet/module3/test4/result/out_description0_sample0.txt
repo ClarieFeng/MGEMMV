@@ -1,0 +1,105 @@
+Starting testbench...
+A=1010011010100100100, B=0010101111010000001, cin=1 => golden={01101001001110100110}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {01101001001110100110}, got {zxxxxxxxxxxxxxxxxxx0}
+A=0000101011001100011, B=0010111101100001101, cin=1 => golden={00011101000101110001}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {00011101000101110001}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0101000010001100101, B=1110101001000010010, cin=1 => golden={10011101011001111000}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10011101011001111000}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1111100110100001101, B=0111111000101110110, cin=1 => golden={10111011111010000100}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10111011111010000100}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1000101011111101101, B=1011111011110001100, cin=1 => golden={10100100111101111010}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10100100111101111010}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1110010010011000110, B=1111000010011000101, cin=0 => golden={11101010100110001011}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {11101010100110001011}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1111111011111100101, B=0100111001001110111, cin=0 => golden={10100110101001011100}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10100110101001011100}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1001101101110001111, B=0000110100111110010, cin=0 => golden={01010100010110000001}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {01010100010110000001}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0000111101011101000, B=0100100111011000101, cin=0 => golden={00101100100110101101}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {00101100100110101101}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1100010100010111101, B=0110101100000101101, cin=1 => golden={10011000000011101011}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10011000000011101011}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1110110001001100011, B=0111000011100001010, cin=0 => golden={10101110100101101101}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10101110100101101101}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1000010000100100000, B=0000100010110101010, cin=1 => golden={01000110011011001011}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {01000110011011001011}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0000011111010010110, B=0111011100000010011, cin=1 => golden={00111111011010101010}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {00111111011010101010}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1111101011001010011, B=1111101110101101011, cin=1 => golden={11111011001110111111}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {11111011001110111111}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1110100101000000010, B=1100011111010101110, cin=1 => golden={11011000100010110001}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {11011000100010110001}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1010111001011001111, B=1000100100100100011, cin=0 => golden={10011011101111110010}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10011011101111110010}, got {zxxxxxxxxxxxxxxxxxx0}
+A=0110000101011001010, B=0010100110000111100, cin=0 => golden={01000101011100000110}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {01000101011100000110}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1100110000110001010, B=1001011001101000001, cin=0 => golden={10110001010011001011}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10110001010011001011}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0001111001101111000, B=0100001001010001001, cin=1 => golden={00110000011000000010}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {00110000011000000010}, got {zxxxxxxxxxxxxxxxxxx0}
+A=0100110010110110110, B=0111111100111000110, cin=0 => golden={01100101111101111100}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {01100101111101111100}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1010000001010111100, B=1111101110100101010, cin=1 => golden={11001101111111100111}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {11001101111111100111}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1111011111001110001, B=0100100000110000101, cin=1 => golden={10011111111111110111}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10011111111111110111}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1000110000000111011, B=1100011001100111010, cin=0 => golden={10101001001101110101}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10101001001101110101}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0100100101100010101, B=0011001101111110001, cin=1 => golden={00111110011100000111}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {00111110011100000111}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0110000011101100010, B=1011111101101001100, cin=1 => golden={10010000001010101111}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10010000001010101111}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0011010000110001111, B=1011010100111111000, cin=1 => golden={01110100101110001000}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {01110100101110001000}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1000101011010011111, B=1011001010001011100, cin=1 => golden={10011110101011111100}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10011110101011111100}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1100011011110001001, B=1100011001001001001, cin=0 => golden={11000110100111010010}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {11000110100111010010}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1101100000011010111, B=1111111110001010001, cin=0 => golden={11101011110100101000}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {11101011110100101000}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1010111111100001100, B=1001100111011000010, cin=0 => golden={10100100110111001110}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10100100110111001110}, got {zxxxxxxxxxxxxxxxxxx0}
+A=0100101101001110111, B=0101110110100111101, cin=0 => golden={01010100011110110100}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {01010100011110110100}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1010000000001111110, B=1011000000101101101, cin=1 => golden={10101000000111101100}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10101000000111101100}, got {zxxxxxxxxxxxxxxxxxx0}
+A=0101000111100011111, B=0111111011011010011, cin=1 => golden={01101000010111110011}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {01101000010111110011}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1001000100001111000, B=0100101100101011011, cin=1 => golden={01101110000111010100}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {01101110000111010100}, got {zxxxxxxxxxxxxxxxxxx0}
+A=0101010111000111111, B=1001010111100101010, cin=0 => golden={01110101110101101001}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {01110101110101101001}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1110011100010000110, B=0100000110010001110, cin=0 => golden={10010100010100010100}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10010100010100010100}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1011001100111111010, B=1011011110000100110, cin=1 => golden={10110101011000100001}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10110101011000100001}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0111011010010100011, B=0011010100000101111, cin=1 => golden={01010101110011010011}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {01010101110011010011}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0000101011001011111, B=0010000110101000100, cin=1 => golden={00010110001110100100}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {00010110001110100100}, got {zxxxxxxxxxxxxxxxxxx0}
+A=0110011011011001011, B=0010001101011100110, cin=0 => golden={01000101000110110001}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {01000101000110110001}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1111100000100101001, B=0101110001011101101, cin=0 => golden={10101010010000010110}, module={zxxxxxxxxxxxxxxxxxx0}
+Mismatch! Expected {10101010010000010110}, got {zxxxxxxxxxxxxxxxxxx0}
+A=1111011011001100101, B=0101110001010110101, cin=1 => golden={10101001100100011011}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10101001100100011011}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0010001100101111001, B=0011111111101000100, cin=0 => golden={00110001100010111101}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {00110001100010111101}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0010000101100101010, B=1101010110110101011, cin=0 => golden={01111011100011010101}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {01111011100011010101}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1011010110111011100, B=1101011110010011010, cin=1 => golden={11000110101001110111}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {11000110101001110111}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0010000001011000011, B=1101110110101010110, cin=0 => golden={01111111000000011001}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {01111111000000011001}, got {zxxxxxxxxxxxxxxxxxx1}
+A=0010111011001100111, B=0010011010000001010, cin=0 => golden={00101010101001110001}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {00101010101001110001}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1101000101000111000, B=0011000011101111001, cin=0 => golden={10000001000110110001}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10000001000110110001}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1001011111110010100, B=1100101110110010011, cin=0 => golden={10110001110100100111}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10110001110100100111}, got {zxxxxxxxxxxxxxxxxxx1}
+A=1111100101001011001, B=0110110100111011011, cin=1 => golden={10110011010000110101}, module={zxxxxxxxxxxxxxxxxxx1}
+Mismatch! Expected {10110011010000110101}, got {zxxxxxxxxxxxxxxxxxx1}
+Testbench completed.
+Passed tests:           0/         50
+Pass rate: 0.00%
+/tmp/mgemmv_eval_fogn50a5/tb.v:60: $finish called at 500 (1s)

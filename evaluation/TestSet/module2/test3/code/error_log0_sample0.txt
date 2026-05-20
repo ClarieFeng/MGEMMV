@@ -1,0 +1,44 @@
+--- Original Failed Code ---
+module PPA_Sklansky_23bit #(
+    parameter width=23
+)(
+    input wire [width-1:0] A,
+    input wire [width-1:0] B,
+    input wire cin,
+    output wire [width-1:0] S,
+    output wire cout
+);
+    wire [3:0] cin_1;
+    wire [7:4] cin_2;
+    wire [11:8] cin_3;
+    wire [15:12] cin_4;
+    wire [19:16] cin_5;
+    wire [23:20] cin_6;
+    wire [20:0] S_temp;
+    wire [24:0] S_final;
+
+    assign cin_1 = cin;
+    assign cin_2 = A[3] & B[3];
+    assign cin_3 = A[7] & B[7];
+    assign cin_4 = A[11] & B[11];
+    assign cin_5 = A[15] & B[15];
+    assign cin_6 = A[23] & B[23];
+
+    assign S_temp = {24{1}} ^ {20{1}} ^ {0{1}};
+    assign S_final = {24{1}} | (S_temp ^ {20{1}} ^ {0{1}});
+
+    assign S = S_final[23:0];
+    assign cout = S_final[24];
+
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmppc9khmak.v:26: error: Concatenation operand "'sd1" has indefinite width.
+/tmp/tmppc9khmak.v:26: error: Concatenation operand "'sd1" has indefinite width.
+/tmp/tmppc9khmak.v:26: error: Concatenation repeat may not be zero in this context.
+/tmp/tmppc9khmak.v:26: error: Unable to elaborate r-value: (({'sd24{'sd1}})^({'sd20{'sd1}}))^({'sd0{'sd1}})
+/tmp/tmppc9khmak.v:27: error: Concatenation operand "'sd1" has indefinite width.
+/tmp/tmppc9khmak.v:27: error: Concatenation operand "'sd1" has indefinite width.
+/tmp/tmppc9khmak.v:27: error: Concatenation repeat may not be zero in this context.
+/tmp/tmppc9khmak.v:27: error: Unable to elaborate r-value: ({'sd24{'sd1}})|(((S_temp)^({'sd20{'sd1}}))^({'sd0{'sd1}}))
+8 error(s) during elaboration.

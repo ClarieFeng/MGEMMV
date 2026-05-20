@@ -1,0 +1,8 @@
+------------------------------------------------
+Test Summary:
+Total Tests: 50
+Passed Tests: 50
+Failed Tests: 0
+Passed Rate: 100.000000%
+------------------------------------------------
+/tmp/mgemmv_eval_zht1rcug/tb.v:131: $finish called at 1550000 (1ps)

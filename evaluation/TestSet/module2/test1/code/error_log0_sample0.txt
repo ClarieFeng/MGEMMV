@@ -1,0 +1,90 @@
+--- Original Failed Code ---
+module PPA_Sklansky_19bit #(
+    parameter width=19
+)(
+    input wire [width-1:0] A,
+    input wire [width-1:0] B,
+    input wire cin,
+    output wire [width-1:0] S,
+    output wire cout
+);
+    wire [4:0] c_1_5, c_9_13, c_13_17, c_17_19;
+    wire [5:0] c_6_10, c_10_14, c_14_18;
+    wire [6:0] c_1_6, c_7_11, c_11_15, c_15_19;
+    wire [7:0] c_2_7, c_8_12, c_12_16;
+    wire [8:0] c_1_8, c_9_18;
+    wire [9:0] c_2_9, c_10_19;
+    wire [10:0] c_3_10, c_11_19;
+    wire [11:0] c_4_11, c_12_19;
+    wire [12:0] c_5_12, c_13_19;
+    wire [13:0] c_6_13, c_14_19;
+    wire [14:0] c_7_14, c_15_19;
+    wire [15:0] c_8_15, c_16_19;
+    wire [16:0] c_9_16, c_17_19;
+    wire [17:0] c_10_17, c_18_19;
+    wire [18:0] c_11_18, c_19_19;
+    wire [19:0] C_final;
+    assign C_final[0] = cin;
+    assign c_1_5 = A[1:5] ^ B[1:5];
+    assign c_6_10 = A[6:10] ^ B[6:10];
+    assign c_11_15 = A[11:15] ^ B[11:15];
+    assign c_16_19 = A[16:19] ^ B[16:19];
+    assign c_1_6 = A[1:6] ^ B[1:6];
+    assign c_7_11 = A[7:11] ^ B[7:11];
+    assign c_12_16 = A[12:16] ^ B[12:16];
+    assign c_1_8 = A[1:8] ^ B[1:8];
+    assign c_9_12 = A[9:12] ^ B[9:12];
+    assign c_13_16 = A[13:16] ^ B[13:16];
+    assign c_1_10 = A[1:10] ^ B[1:10];
+    assign c_11_14 = A[11:14] ^ B[11:14];
+    assign c_15_18 = A[15:18] ^ B[15:18];
+    assign c_1_12 = A[1:12] ^ B[1:12];
+    assign c_13_16 = A[13:16] ^ B[13:16];
+    assign c_1_14 = A[1:14] ^ B[1:14];
+    assign c_15_18 = A[15:18] ^ B[15:18];
+    assign c_1_16 = A[1:16] ^ B[1:16];
+    assign c_17_20 = A[17:20] ^ B[17:20];
+    assign c_1_18 = A[1:18] ^ B[1:18];
+    assign c_19_22 = A[19:22] ^ B[19:22];
+    assign c_2_5 = A[2:5] & B[2:5];
+    assign c_6_10 = A[6:10] & B[6:10];
+    assign c_11_15 = A[11:15] & B[11:15];
+    assign c_16_19 = A[16:19] & B[16:19];
+    assign c_2_6 = A[2:6] & B[2:6];
+    assign c_7_11 = A[7:11] & B[7:11];
+    assign c_12_16 = A[12:16] & B[12:16];
+    assign c_2_8 = A[2:8] & B[2:8];
+    assign c_9_12 = A[9:12] & B[9:12];
+    assign c_13_16 = A[13:16] & B[13:16];
+    assign c_2_10 = A[2:10] & B[2:10];
+    assign c_11_14 = A[11:14] & B[11:14];
+    assign c_2_12 = A[2:12] & B[2:12];
+    assign c_13_16 = A[13:16] & B[13:16];
+    assign c_2_14 = A[2:14] & B[2:14];
+    assign c_3_6 = A[3:6] & B[3:6];
+    assign c_7_10 = A[7:10] & B[7:10];
+    assign c_11_14 = A[11:14] & B[11:14];
+    assign c_3_8 = A[3:8] & B[3:8];
+    assign c_9_12 = A[9:12] & B[9:12];
+    assign c_13_16 = A[13:16] & B[13:16];
+    assign c_3_10 = A[3:10] & B[3:10];
+    assign c_11_14 = A[11:14] & B[11:14];
+    assign c_3_12 = A[3:12] & B[3:12];
+    assign c_13_16 = A[13:16] & B[13:16];
+    assign c_4_7 = A[4:7] & B[4:7];
+    assign c_8_11 = A[8:11] & B[8:11];
+    assign c_12_16 = A[12:16] & B[12:16];
+    assign c_4_9 = A[4:9] & B[4:9];
+    assign c_10_13 = A[10:13] & B[10:13];
+    assign c_14_18 = A[14:18] & B[14:18];
+    assign c_4_11 = A[4:11] & B[4:11];
+    assign c_10_14 = A[10:14] & B
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmpbcbj59ex.v:20: error: 'c_15_19' has already been declared in this scope.
+/tmp/tmpbcbj59ex.v:12:      : It was declared here as a net.
+/tmp/tmpbcbj59ex.v:22: error: 'c_17_19' has already been declared in this scope.
+/tmp/tmpbcbj59ex.v:10:      : It was declared here as a net.
+/tmp/tmpbcbj59ex.v:81: syntax error
+I give up.

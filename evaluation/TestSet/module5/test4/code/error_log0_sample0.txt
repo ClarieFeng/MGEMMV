@@ -1,0 +1,46 @@
+--- Original Failed Code ---
+module C_Skip_A_21bit (
+    input wire [21:1] A,
+    input wire [21:1] B,
+    input wire cin,
+    output wire [21:1] S,
+    output wire cout
+);
+
+    wire c16;
+    wire c20;
+
+    C_Skip_A_16bit #(.width(16)) u0 (
+        .A(A[16:1]),
+        .B(B[16:1]),
+        .cin(cin),
+        .S(S[16:1]),
+        .cout(c16)
+    );
+    C_Skip_A_4bit #(.width(4)) u1 (
+        .A(A[20:17]),
+        .B(B[20:17]),
+        .cin(c16),
+        .S(S[20:17]),
+        .cout(c20)
+    );
+    C_Skip_A_1bit #(.width(1)) u2 (
+        .A(A[21:21]),
+        .B(B[21:21]),
+        .cin(c20),
+        .S(S[21:21]),
+        .cout(cout)
+    );
+
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmpgugsfn9h.v:12: error: Unknown module type: C_Skip_A_16bit
+/tmp/tmpgugsfn9h.v:19: error: Unknown module type: C_Skip_A_4bit
+/tmp/tmpgugsfn9h.v:26: error: Unknown module type: C_Skip_A_1bit
+4 error(s) during elaboration.
+*** These modules were missing:
+        C_Skip_A_16bit referenced 1 times.
+        C_Skip_A_1bit referenced 1 times.
+        C_Skip_A_4bit referenced 1 times.
+***

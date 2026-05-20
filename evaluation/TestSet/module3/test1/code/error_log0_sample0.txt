@@ -1,0 +1,35 @@
+--- Original Failed Code ---
+module PPA_Kogge_Stone_24bit #(
+    parameter width=24
+) (
+    input wire [width-1:0] A,
+    input wire [width-1:0] B,
+    input wire cin,
+    output wire [width-1:0] S,
+    output wire cout
+);
+    wire [width-1:0] p, g;
+    wire [width-1:0] P, G;
+    wire [width:0] c_temp;
+
+    assign c_temp[0] = cin;
+    assign p = A ^ B;
+    assign g = A & B;
+
+    genvar i;
+    generate
+        for (i = 1; i < width + 1; i = i + 1) begin
+            assign c_temp[i] = g[i-1];
+        end
+    endgenerate
+
+    assign P = c_temp[width-1] ? p : {1'b0, p[width-1:1]};
+    assign G = c_temp[width] ? g : {1'b0, g[width-1:1]};
+
+    assign S = P ^ c_temp[0:width-1];
+    assign cout = G[width];
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmp0jm30cga.v:28: error: part select c_temp[0:23] is out of order.
+1 error(s) during elaboration.

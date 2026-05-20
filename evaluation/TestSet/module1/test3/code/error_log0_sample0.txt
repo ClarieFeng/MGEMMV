@@ -1,0 +1,40 @@
+--- Original Failed Code ---
+module FA_20bit #(
+    parameter width=20
+) (
+    input wire [width:1] A,
+    input wire [width:1] B,
+    input wire cin,
+    output wire [width:1] S,
+    output wire cout
+);
+    wire [width:1] p;
+    wire [width:1] g;
+    wire [width:2] P_temp;
+    wire [width:2] G_temp;
+    wire [width+1:1] pp;
+    wire [width+1:1] gg;
+    assign p = A ^ B;
+    assign g = A & B;
+    assign P_temp = {1'b0, p};
+    assign G_temp = {1'b0, g};
+    genvar i;
+    generate
+        for(i=1; i<width+2; i=i+1) begin
+            if(i == 1) begin
+                assign {pp[i], pp[i+1]} = P_temp[i] ? {1'b0, 1'b0} : {1'b0, 1'b1};
+                assign {gg[i], gg[i+1]} = G_temp[i] ? {1'b1, 1'b0} : {1'b0, 1'b0};
+            end else begin
+                assign {pp[i], pp[i+1]} = {pp[i-1], pp[i]} ^ {G_temp[i-1], P_temp[i]};
+                assign {gg[i], gg[i+1]} = {gg[i-1], gg[i]} | {G_temp[i-1], P_temp[i]};
+            end
+        end
+    endgenerate
+    assign S = gg[width+1] ? g : p;
+    assign cout = &gg[width+1];
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmpn1pd_c3v.v:27: error: Index pp[22] is out of range.
+/tmp/tmpn1pd_c3v.v:28: error: Index gg[22] is out of range.
+2 error(s) during elaboration.

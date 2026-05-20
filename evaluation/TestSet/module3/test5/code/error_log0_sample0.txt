@@ -1,0 +1,40 @@
+--- Original Failed Code ---
+module PPA_Kogge_Stone_22bit #(
+    parameter width=22
+) (
+    input wire [width-1:0] A,
+    input wire [width-1:0] B,
+    input wire cin,
+    output wire [width-1:0] S,
+    output wire cout
+);
+    wire [width-1:0] p, g;
+    wire [width-1:0] P, G;
+    wire [width:0] c_temp;
+
+    assign c_temp[0] = cin;
+    assign p = A ^ B;
+    assign g = A & B;
+
+    genvar i;
+    generate
+        for(i = 1; i < width+1; i = i + 1) begin
+            assign c_temp[i] = g[i-1];
+        end
+    endgenerate
+
+    assign P = c_temp[width] ? c_temp : 'b0;
+    assign G = p | g;
+
+    genvar j;
+    generate
+        for(j = 1; j < width+2; j = j + 1) begin
+            assign S[j-1] = G[j-1];
+            assign cout = G[width+1];
+        end
+    endgenerate
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmpu_0phwwe.v:31: error: Index S[22] is out of range.
+1 error(s) during elaboration.

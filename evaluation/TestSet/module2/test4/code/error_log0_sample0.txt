@@ -1,0 +1,78 @@
+--- Original Failed Code ---
+module PPA_Sklansky_21bit #(
+    parameter width=21
+)(
+    input wire [width-1:0] A,
+    input wire [width-1:0] B,
+    input wire cin,
+    output wire [width-1:0] S,
+    output wire cout
+);
+    wire [width-1:0] p, g;
+    wire [width-1:0] P, G;
+    wire [width:0] c_temp;
+
+    assign c_temp[0] = cin;
+    assign p = A ^ B;
+    assign g = A & B;
+
+    gen_1_20 #(.width(20)) u0 (
+        .p(p[20:1]),
+        .g(g[20:1]),
+        .cin(c_temp[0]),
+        .p_1_20(P[20:1]),
+        .g_1_20(G[20:1]),
+        .cin_1_20(c_temp[1])
+    );
+    assign S[20:1] = P[20:1] ^ G[20:1];
+    assign c_temp[21:21] = {1'b0, G[20:1]};
+
+    gen_21_40 #(.width(20)) u1 (
+        .p(c_temp[21:21]),
+        .g(c_temp[22:21]),
+        .cin(c_temp[21]),
+        .p_1_20(P[41:22]),
+        .g_1_20(G[41:22]),
+        .cin_1_20(c_temp[41])
+    );
+    assign S[41:21] = P[41:22] ^ G[41:22];
+    assign c_temp[42:42] = {1'b0, G[41:22]};
+
+    gen_41_61 #(.width(20)) u2 (
+        .p(c_temp[43:42]),
+        .g(c_temp[44:43]),
+        .cin(c_temp[43]),
+        .p_1_20(P[61:44]),
+        .g_1_20(G[61:44]),
+        .cin_1_20(c_temp[61])
+    );
+    assign S[61:41] = P[61:44] ^ G[61:44];
+    assign c_temp[62:62] = {1'b0, G[61:44]};
+
+    gen_61_81 #(.width(20)) u3 (
+        .p(c_temp[63:62]),
+        .g(c_temp[64:63]),
+        .cin(c_temp[63]),
+        .p_1_20(P[81:66]),
+        .g_1_20(G[81:66]),
+        .cin_1_20(c_temp[81])
+    );
+    assign S[81:61] = P[81:66] ^ G[81:66];
+    assign c_temp[82:82] = {1'b0, G[81:66]};
+
+    assign S[width-1:62] = c_temp[62:1];
+    assign cout = c_temp[82];
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmptzv13162.v:18: error: Unknown module type: gen_1_20
+/tmp/tmptzv13162.v:29: error: Unknown module type: gen_21_40
+/tmp/tmptzv13162.v:40: error: Unknown module type: gen_41_61
+/tmp/tmptzv13162.v:51: error: Unknown module type: gen_61_81
+5 error(s) during elaboration.
+*** These modules were missing:
+        gen_1_20 referenced 1 times.
+        gen_21_40 referenced 1 times.
+        gen_41_61 referenced 1 times.
+        gen_61_81 referenced 1 times.
+***

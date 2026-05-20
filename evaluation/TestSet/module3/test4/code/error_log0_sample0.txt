@@ -1,0 +1,43 @@
+--- Original Failed Code ---
+module PPA_Kogge_Stone_19bit #(
+    parameter width=19
+)(
+    input wire [width-1:0] A,
+    input wire [width-1:0] B,
+    input wire cin,
+    output wire [width-1:0] S,
+    output wire cout
+);
+    wire [width-1:0] p, g;
+    wire [width-1:0] P, G;
+    wire [width:0] c_temp;
+
+    assign c_temp[0] = cin;
+    assign p = A ^ B;
+    assign g = A & B;
+
+    GP_1_19 #(.width(19)) u0 (
+        .p(p),
+        .g(g),
+        .cin(c_temp[0]),
+        .p_1_19(P[1-1:19-19]),
+        .g_1_19(G[1-1:19-19])
+    );
+
+    genvar i;
+    generate
+        for (i=1; i<width; i=i+1) begin
+            assign c_temp[i+1] = G[i] | (P[i] & c_temp[i]);
+        end
+    endgenerate
+
+    assign S = c_temp[width-1:0] ^ p;
+    assign cout = c_temp[width];
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmpin2bfaf9.v:18: error: Unknown module type: GP_1_19
+2 error(s) during elaboration.
+*** These modules were missing:
+        GP_1_19 referenced 1 times.
+***

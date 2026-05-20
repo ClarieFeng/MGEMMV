@@ -1,0 +1,37 @@
+--- Original Failed Code ---
+module C_Skip_A_20bit #(
+    parameter width=20
+)(
+    input wire [width:1] A,
+    input wire [width:1] B,
+    input wire cin,
+    output wire [width:1] S,
+    output wire cout
+);
+    wire c16;
+    wire c24;
+    C_Skip_A_16bit #(.width(16)) u0 (
+        .A(A[16:1]),
+        .B(B[16:1]),
+        .cin(cin),
+        .S(S[16:1]),
+        .cout(c16)
+    );
+    C_Skip_A_4bit #(.width(4)) u1 (
+        .A(A[20:17]),
+        .B(B[20:17]),
+        .cin(c16),
+        .S(S[20:17]),
+        .cout(c24)
+    );
+    assign cout = c24;
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmprxj7aoip.v:12: error: Unknown module type: C_Skip_A_16bit
+/tmp/tmprxj7aoip.v:19: error: Unknown module type: C_Skip_A_4bit
+3 error(s) during elaboration.
+*** These modules were missing:
+        C_Skip_A_16bit referenced 1 times.
+        C_Skip_A_4bit referenced 1 times.
+***

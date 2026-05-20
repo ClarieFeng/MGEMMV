@@ -1,0 +1,9 @@
+Total tests: 5
+Total passed compilations: 3 (60.00%)
+Total functional tests passed: 1 (20.00%)
+Compilation Pass@1: 0.60
+Compilation Pass@5: 1.00
+Compilation Pass@10: 1.00
+Functional Pass@1: 0.20
+Functional Pass@5: 1.00
+Functional Pass@10: 1.00

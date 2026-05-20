@@ -1,0 +1,39 @@
+--- Original Failed Code ---
+module PPA_Brent_Kung_17bit #(
+    parameter width=17
+)(
+    input wire [width-1:0] A,
+    input wire [width-1:0] B,
+    input wire cin,
+    output wire [width-1:0] S,
+    output wire cout
+);
+    wire [width-1:0] p, g;
+    wire [width-1:0] P, G;
+    wire [width:0] c_temp;
+
+    assign c_temp[0] = cin;
+    assign p = A ^ B;
+    assign g = A & B;
+
+    genvar i;
+    generate
+        for (i = 1; i < width + 1; i = i + 1) begin
+            assign c_temp[i] = g[i-1];
+        end
+    endgenerate
+
+    assign P = c_temp[width] ? {1'b1, c_temp[1:width]} : {1'b0, c_temp[1:width]};
+
+    assign S = c_temp[0] ? P ^ p : p;
+    assign G = c_temp[0] ? g : {1'b1, c_temp[1:width]};
+
+    assign cout = G[width];
+
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmpcvc5c0s8.v:25: error: part select c_temp[1:17] is out of order.
+/tmp/tmpcvc5c0s8.v:25: error: part select c_temp[1:17] is out of order.
+/tmp/tmpcvc5c0s8.v:28: error: part select c_temp[1:17] is out of order.
+3 error(s) during elaboration.

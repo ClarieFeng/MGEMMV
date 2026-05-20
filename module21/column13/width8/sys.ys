@@ -1,0 +1,19 @@
+
+#**************************************************/
+#* Compile Script for yosys                       */
+#* */
+#* yosys -s sys.ys                               */
+#**************************************************/
+
+# 使用标准的 read_verilog 命令通过通配符直接读取代码
+read_verilog ../module21/column13/width8/code/*.v
+
+hierarchy -check -top DataReOrganize
+#synth -top DataReOrganize
+proc
+#opt
+#fsm
+#opt
+#memory
+#opt
+write_json ./json/DataReOrganize_13_8bit.json

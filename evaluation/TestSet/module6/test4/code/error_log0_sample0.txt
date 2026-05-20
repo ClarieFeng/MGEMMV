@@ -1,0 +1,38 @@
+--- Original Failed Code ---
+module C_Sel_A_24bit #(
+    parameter width=24
+)(
+    input wire [width:1] A,
+    input wire [width:1] B,
+    input wire cin,
+    output wire [width:1] S,
+    output wire cout
+);
+
+    wire c16;
+
+    C_Sel_A_16bit #(.width(16)) u0 (
+        .A(A[16:1]),
+        .B(B[16:1]),
+        .cin(cin),
+        .S(S[16:1]),
+        .cout(c16)
+    );
+    C_Sel_A_8bit #(.width(8)) u1 (
+        .A(A[24:17]),
+        .B(B[24:17]),
+        .cin(c16),
+        .S(S[24:17]),
+        .cout(cout)
+    );
+
+endmodule
+
+--- Iverilog Errors ---
+/tmp/tmp8ikiyw2g.v:13: error: Unknown module type: C_Sel_A_16bit
+/tmp/tmp8ikiyw2g.v:20: error: Unknown module type: C_Sel_A_8bit
+3 error(s) during elaboration.
+*** These modules were missing:
+        C_Sel_A_16bit referenced 1 times.
+        C_Sel_A_8bit referenced 1 times.
+***

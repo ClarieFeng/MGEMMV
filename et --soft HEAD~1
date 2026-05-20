@@ -1,0 +1,59 @@
+[33mcommit f15ee42c8ff9a6dba01944cea30627dac0b8f939[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Feng Jiahui <2012751036@qq.com>
+Date:   Wed May 20 15:53:51 2026 +0800
+
+    remove local model files from git tracking
+
+ MGEMMV-Llama-11b/.gitattributes                                     |   36 [31m-[m
+ MGEMMV-Llama-11b/Modelfile                                          |   15 [31m-[m
+ MGEMMV-Llama-11b/README.md                                          |   80 [31m--[m
+ MGEMMV-Llama-11b/chat_template.json                                 |    3 [31m-[m
+ MGEMMV-Llama-11b/config.json                                        |  108 [31m---[m
+ MGEMMV-Llama-11b/diagram_example/CLA_8bit.jpg                       |  Bin [31m45141[m -> [32m0[m bytes
+ MGEMMV-Llama-11b/diagram_example/MAC_signed_4bit_Multi_Booth_FA.jpg |  Bin [31m26341[m -> [32m0[m bytes
+ MGEMMV-Llama-11b/diagram_example/PE_array_2_2_4bit.jpg              |  Bin [31m99838[m -> [32m0[m bytes
+ MGEMMV-Llama-11b/diagram_example/Wino_ATZA_22_12_4bit.jpg           |  Bin [31m28724[m -> [32m0[m bytes
+ MGEMMV-Llama-11b/diagram_example/Wino_BTDB_22_12_4bit.jpg           |  Bin [31m29658[m -> [32m0[m bytes
+ MGEMMV-Llama-11b/generation_config.json                             |   13 [31m-[m
+ MGEMMV-Llama-11b/image/overview.jpg                                 |  Bin [31m42096[m -> [32m0[m bytes
+ MGEMMV-Llama-11b/model-00001-of-00005.safetensors                   |    3 [31m-[m
+ MGEMMV-Llama-11b/model-00002-of-00005.safetensors                   |    3 [31m-[m
+ MGEMMV-Llama-11b/model-00003-of-00005.safetensors                   |    3 [31m-[m
+ MGEMMV-Llama-11b/model-00004-of-00005.safetensors                   |    3 [31m-[m
+ MGEMMV-Llama-11b/model-00005-of-00005.safetensors                   |    3 [31m-[m
+ MGEMMV-Llama-11b/model.safetensors.index.json                       |  913 [31m-------------------[m
+ MGEMMV-Llama-11b/preprocessor_config.json                           |   26 [31m-[m
+ MGEMMV-Llama-11b/special_tokens_map.json                            |   39 [31m-[m
+ MGEMMV-Llama-11b/tokenizer.json                                     |    3 [31m-[m
+ MGEMMV-Llama-11b/tokenizer_config.json                              | 2079 [31m-------------------------------------------[m
+ 22 files changed, 3330 deletions(-)
+
+[33mcommit 8ad1590a2280f009e0d8a2283ac05284316b4712[m
+Author: ClarieFeng <2012751036@qq.com>
+Date:   Wed May 20 14:57:28 2026 +0800
+
+    update project files
+
+ MGEMMV-Llama-11b/.gitattributes                                     |   36 [32m+[m
+ MGEMMV-Llama-11b/Modelfile                                          |   15 [32m+[m
+ MGEMMV-Llama-11b/README.md                                          |   80 [32m++[m
+ MGEMMV-Llama-11b/chat_template.json                                 |    3 [32m+[m
+ MGEMMV-Llama-11b/config.json                                        |  108 [32m+++[m
+ MGEMMV-Llama-11b/diagram_example/CLA_8bit.jpg                       |  Bin [31m0[m -> [32m45141[m bytes
+ MGEMMV-Llama-11b/diagram_example/MAC_signed_4bit_Multi_Booth_FA.jpg |  Bin [31m0[m -> [32m26341[m bytes
+ MGEMMV-Llama-11b/diagram_example/PE_array_2_2_4bit.jpg              |  Bin [31m0[m -> [32m99838[m bytes
+ MGEMMV-Llama-11b/diagram_example/Wino_ATZA_22_12_4bit.jpg           |  Bin [31m0[m -> [32m28724[m bytes
+ MGEMMV-Llama-11b/diagram_example/Wino_BTDB_22_12_4bit.jpg           |  Bin [31m0[m -> [32m29658[m bytes
+ MGEMMV-Llama-11b/generation_config.json                             |   13 [32m+[m
+ MGEMMV-Llama-11b/image/overview.jpg                                 |  Bin [31m0[m -> [32m42096[m bytes
+ MGEMMV-Llama-11b/model-00001-of-00005.safetensors                   |    3 [32m+[m
+ MGEMMV-Llama-11b/model-00002-of-00005.safetensors                   |    3 [32m+[m
+ MGEMMV-Llama-11b/model-00003-of-00005.safetensors                   |    3 [32m+[m
+ MGEMMV-Llama-11b/model-00004-of-00005.safetensors                   |    3 [32m+[m
+ MGEMMV-Llama-11b/model-00005-of-00005.safetensors                   |    3 [32m+[m
+ MGEMMV-Llama-11b/model.safetensors.index.json                       |  913 [32m+++++++++++++++++++[m
+ MGEMMV-Llama-11b/preprocessor_config.json                           |   26 [32m+[m
+ MGEMMV-Llama-11b/special_tokens_map.json                            |   39 [32m+[m
+ MGEMMV-Llama-11b/tokenizer.json                                     |    3 [32m+[m
+ MGEMMV-Llama-11b/tokenizer_config.json                              | 2079 [32m+++++++++++++++++++++++++++++++++++++++++++[m
+ 22 files changed, 3330 insertions(+)
