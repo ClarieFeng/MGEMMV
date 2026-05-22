@@ -1,0 +1,28 @@
+Module,TopName,Syntax,Functional,Total
+module1,"FA_17bit, FA_19bit, FA_20bit, FA_21bit",3,3,5
+module2,"PPA_Sklansky_17bit, PPA_Sklansky_19bit, PPA_Sklansky_21bit, PPA_Sklansky_22bit, PPA_Sklansky_23bit",0,0,5
+module3,"PPA_Kogge_Stone_19bit, PPA_Kogge_Stone_21bit, PPA_Kogge_Stone_22bit, PPA_Kogge_Stone_24bit",0,0,5
+module4,"PPA_Brent_Kung_17bit, PPA_Brent_Kung_20bit, PPA_Brent_Kung_24bit",1,0,5
+module5,"C_Skip_A_18bit, C_Skip_A_20bit, C_Skip_A_21bit, C_Skip_A_23bit",4,4,5
+module6,"C_Sel_A_19bit, C_Sel_A_20bit, C_Sel_A_24bit",5,5,5
+module7,"CLA_17bit, CLA_22bit, CLA_23bit, CLA_24bit",4,3,5
+module8,AdderTree_signed,1,0,5
+module9,"AdderTree_unsigned, AdderTree_unsigned_unsigned_25bit",4,3,5
+module10,"signed_addertree_17_7_PPA_Brent_Kung, signed_addertree_18_9_PPA_Kogge_Stone, signed_addertree_19_8_FA, signed_addertree_19_8_PPA_Sklansky, signed_addertree_23_10_CLA",1,0,5
+module11,"addertree_17_6_CLA, addertree_19_9_PPA_Sklansky, addertree_22_8_CLA, addertree_23_6_PPA_Brent_Kung, addertree_23_9_PPA_Kogge_Stone",4,1,5
+module12,"Multi_Booth_16bit, Multi_Booth_signed_even, Multi_Booth_signed_odd",0,0,5
+module13,Multi_Booth_unsigned,4,2,5
+module14,Multi_signed,1,0,5
+module15,Multi_unsigned,0,0,5
+module16,"booth_multiplier_8_CLA, booth_multiplier_8_PPA_Brent_Kung, booth_multiplier_9_CLA, booth_multiplier_9_C_Skip_A, booth_multiplier_9_PPA_Sklansky",0,0,5
+module17,"parallel_multiplier_11_PPA_Kogge_Stone, parallel_multiplier_12_PPA_Sklansky, parallel_multiplier_7_PPA_Kogge_Stone, parallel_multiplier_8_C_Skip_A",1,0,5
+module18,"signed_parallel_multiplier_12_C_Sel_A, signed_parallel_multiplier_12_FA, signed_parallel_multiplier_7_FA, signed_parallel_multiplier_9_PPA_Kogge_Stone",1,0,5
+module19,"serial_multiplier_11_PPA_Brent_Kung, serial_multiplier_11_PPA_Kogge_Stone, serial_multiplier_7_C_Skip_A, serial_multiplier_8_C_Skip_A, serial_multiplier_9_C_Sel_A",0,0,5
+module20,"signed_serial_multiplier_10_FA, signed_serial_multiplier_11_C_Sel_A, signed_serial_multiplier_12_PPA_Brent_Kung, signed_serial_multiplier_8_PPA_Kogge_Stone, signed_serial_multiplier_9_CLA",0,0,5
+module21,DataReOrganize,0,0,5
+module22,"Wino_ATZA_22_21, Wino_ATZA_22_23, Wino_ATZA_22_31, Wino_ATZA_22_33",5,5,5
+module23,"Wino_BTDB_22_12, Wino_BTDB_22_21, Wino_BTDB_22_22, Wino_BTDB_22_23, Wino_BTDB_22_32",4,4,5
+module24,MAC_signed,5,5,5
+module25,PE,3,0,5
+module26,PE_row,3,0,5
+module27,PE_array,0,0,5
