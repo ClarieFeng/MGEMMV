@@ -1,10 +1,14 @@
 import argparse
 import csv
+import sys
 from collections import defaultdict
 from pathlib import Path
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
+
+
+csv.field_size_limit(min(sys.maxsize, 10**7))
 
 
 def parse_bool(value: str) -> bool:
