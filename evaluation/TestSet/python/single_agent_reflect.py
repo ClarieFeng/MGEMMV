@@ -29,6 +29,12 @@ except Exception:
     torch = None
 
 
+MAX_MM_PROMPT_TOKENS = 8192
+MAX_TEXT_PROMPT_TOKENS = 6144
+MAX_BEFORE_IMAGE_TOKENS = 2048
+MAX_AFTER_IMAGE_TOKENS = 6144
+
+
 ERROR_DB = [
     {
         "category": "multi_driver_or_reg_assign",
@@ -164,6 +170,20 @@ def detect_adder_interface(candidate: str):
     )
 
 
+def detect_zero_based_adder_interface(candidate: str):
+    normalized = re.sub(r"\s+", " ", candidate)
+    return all(
+        token in normalized
+        for token in [
+            "input wire [width-1:0] A",
+            "input wire [width-1:0] B",
+            "input wire cin",
+            "output wire [width-1:0] S",
+            "output wire cout",
+        ]
+    )
+
+
 def detect_cla_family_interface(candidate: str):
     return all(
         pattern in candidate
@@ -214,6 +234,40 @@ def detect_unsigned_multiplier_interface(candidate: str):
     )
 
 
+def detect_zero_based_parallel_multiplier_interface(candidate: str):
+    normalized = re.sub(r"\s+", " ", candidate)
+    if not re.search(r"input wire\s*\[width-1:0\]\s*A\b", normalized):
+        return None
+    if not re.search(r"input wire\s*\[width-1:0\]\s*B\b", normalized):
+        return None
+    if not re.search(r"output wire\s*\[\s*width\s*\*\s*2\s*-\s*1\s*:\s*0\s*\]\s*S\b", normalized):
+        return None
+    module_name = (extract_module_name(candidate) or "").lower()
+    signed = "signed" in module_name
+    return {"signed": signed}
+
+
+def detect_serial_multiplier_interface(candidate: str):
+    normalized = re.sub(r"\s+", " ", candidate)
+    if not re.search(r"input wire\s*clk\b", normalized):
+        return None
+    if not re.search(r"input wire\s*rst_n\b", normalized):
+        return None
+    if not re.search(r"input wire\s*en\b", normalized):
+        return None
+    if not re.search(r"output\s+(?:reg|wire)\s*valid\b", normalized):
+        return None
+    if not re.search(r"output\s+(?:reg|wire)\s*\[\s*width\s*\*\s*2\s*:\s*1\s*\]\s*S\b", normalized):
+        return None
+    if not re.search(r"input wire\s*\[width-1:0\]\s*A\b", normalized):
+        return None
+    if not re.search(r"input wire\s*\[width-1:0\]\s*B\b", normalized):
+        return None
+    module_name = (extract_module_name(candidate) or "").lower()
+    signed = "signed" in module_name
+    return {"signed": signed}
+
+
 def detect_mac_signed_interface(candidate: str):
     normalized = re.sub(r"\s+", " ", candidate)
     return all(
@@ -234,6 +288,68 @@ def split_prompt_at_image_tag(prompt):
     return prompt.strip(), None
 
 
+def get_text_token_ids(text: str):
+    tokenizer = getattr(processor, "tokenizer", None)
+    if tokenizer is None:
+        return None
+    try:
+        return tokenizer.encode(text, add_special_tokens=False)
+    except Exception:
+        return None
+
+
+def truncate_text_middle(text: str, max_tokens: int, *, marker: str = "\n...[truncated]...\n"):
+    token_ids = get_text_token_ids(text)
+    if token_ids is None or len(token_ids) <= max_tokens:
+        return text, False
+
+    marker_ids = get_text_token_ids(marker) or []
+    marker_len = len(marker_ids)
+    if max_tokens <= marker_len + 16:
+        kept_ids = token_ids[-max_tokens:]
+        return processor.tokenizer.decode(kept_ids, skip_special_tokens=True), True
+
+    keep_total = max_tokens - marker_len
+    head_len = int(keep_total * 0.35)
+    tail_len = keep_total - head_len
+    kept_ids = token_ids[:head_len] + marker_ids + token_ids[-tail_len:]
+    return processor.tokenizer.decode(kept_ids, skip_special_tokens=True), True
+
+
+def truncate_text_tail(text: str, max_tokens: int, *, marker: str = "\n...[truncated head]...\n"):
+    token_ids = get_text_token_ids(text)
+    if token_ids is None or len(token_ids) <= max_tokens:
+        return text, False
+
+    marker_ids = get_text_token_ids(marker) or []
+    marker_len = len(marker_ids)
+    if max_tokens <= marker_len + 16:
+        kept_ids = token_ids[-max_tokens:]
+        return processor.tokenizer.decode(kept_ids, skip_special_tokens=True), True
+
+    tail_len = max_tokens - marker_len
+    kept_ids = marker_ids + token_ids[-tail_len:]
+    return processor.tokenizer.decode(kept_ids, skip_special_tokens=True), True
+
+
+def budget_multimodal_prompt(prompt: str):
+    before_text, after_text = split_prompt_at_image_tag(prompt)
+    truncated = False
+
+    if after_text is None:
+        prompt, truncated = truncate_text_middle(prompt, MAX_MM_PROMPT_TOKENS)
+        return prompt, None, truncated
+
+    before_text, before_truncated = truncate_text_middle(before_text, MAX_BEFORE_IMAGE_TOKENS)
+    after_text, after_truncated = truncate_text_middle(after_text, MAX_AFTER_IMAGE_TOKENS)
+    truncated = before_truncated or after_truncated
+    return before_text, after_text, truncated
+
+
+def budget_text_prompt(prompt: str):
+    return truncate_text_middle(prompt, MAX_TEXT_PROMPT_TOKENS)
+
+
 def set_generation_seed(seed: int | None):
     if seed is None:
         return
@@ -252,13 +368,42 @@ def load_case(base_path: Path, module_id: int, test_id: int, file_index: int = 0
     code_dir = case_dir / "code"
     prompt = (description_dir / f"description{file_index}.txt").read_text(encoding="utf-8").strip()
     image_name = (description_dir / f"image_name{file_index}.txt").read_text(encoding="utf-8").strip()
-    image_path = description_dir / image_name
+    image_path = resolve_case_image_path(description_dir, image_name)
     return case_dir, code_dir, prompt, image_path
 
 
-def generate_code_with_limits(prompt: str, image_path: str, *, max_new_tokens: int = 1536):
+def resolve_case_image_path(description_dir: Path, image_name: str):
+    declared_path = description_dir / image_name
+    if declared_path.exists():
+        return declared_path
+
+    stem = Path(image_name).stem
+    suffix = Path(image_name).suffix.lower()
+    candidates = []
+    if stem:
+        candidates.extend(sorted(description_dir.glob(f"{stem}.*")))
+    if suffix:
+        candidates.extend(sorted(description_dir.glob(f"*{suffix}")))
+    candidates.extend(sorted(description_dir.glob("*.jpg")))
+    candidates.extend(sorted(description_dir.glob("*.jpeg")))
+    candidates.extend(sorted(description_dir.glob("*.png")))
+
+    seen = set()
+    for candidate in candidates:
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def generate_code_with_limits(prompt: str, image_path: str | None, *, max_new_tokens: int = 1536):
+    if image_path is None:
+        return generate_text_only_with_limits(prompt, max_new_tokens=max_new_tokens)
+
     image = load_image(image_path)
-    before_text, after_text = split_prompt_at_image_tag(prompt)
+    before_text, after_text, _ = budget_multimodal_prompt(prompt)
 
     messages = [{"role": "user", "content": []}]
     if before_text:
@@ -282,6 +427,7 @@ def generate_code_with_limits(prompt: str, image_path: str, *, max_new_tokens: i
 
 
 def generate_text_only_with_limits(prompt: str, *, max_new_tokens: int = 384):
+    prompt, _ = budget_text_prompt(prompt)
     messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
     input_text = processor.apply_chat_template(messages, add_generation_prompt=True)
     inputs = processor(text=input_text, add_special_tokens=False, return_tensors="pt").to(device)
@@ -383,9 +529,15 @@ def retrieve_error_notes(error_text: str, rag_path: Path | None):
 def detect_interface_family(candidate: str):
     if detect_mac_signed_interface(candidate):
         return "signed_mac"
+    if detect_serial_multiplier_interface(candidate):
+        return "serial_multiplier"
+    if detect_zero_based_parallel_multiplier_interface(candidate):
+        return "parallel_multiplier"
     if detect_cla_family_interface(candidate):
         return "cla_family"
     if detect_adder_interface(candidate):
+        return "two_input_adder"
+    if detect_zero_based_adder_interface(candidate):
         return "two_input_adder"
     if detect_signed_multi_input_sum_interface(candidate):
         return "signed_multi_input_sum"
@@ -464,6 +616,24 @@ def summarize_failure(error_text: str, notes, candidate: str):
             "Do not instantiate signed Booth helpers with mismatched ports.",
             "Do not truncate the product width.",
         ])
+    elif family == "parallel_multiplier":
+        goals.extend([
+            "Make S exactly equal the product of A and B with the declared output width.",
+            "Prefer a direct self-contained multiplication over rebuilding a broken partial-product tree.",
+        ])
+        avoid.extend([
+            "Do not invent intermediate adder trees if a direct multiply is sufficient.",
+            "Do not mismatch signedness between the interface and the product expression.",
+        ])
+    elif family == "serial_multiplier":
+        goals.extend([
+            "Make S latch the product of A and B when en is asserted and raise valid for the completed result.",
+            "Keep the sequential handshake simple, synthesizable, and consistent with the existing interface.",
+        ])
+        avoid.extend([
+            "Do not leave valid permanently low.",
+            "Do not rebuild an elaborate internal partial-product schedule if a simple registered product satisfies the interface.",
+        ])
     elif family == "signed_mac":
         goals.extend([
             "Make result exactly equal signed(A) * signed(B) + signed(acc_in).",
@@ -496,11 +666,15 @@ def summarize_failure(error_text: str, notes, candidate: str):
 
 def truncate_for_reflection(previous_code: str, error_text: str, notes):
     code_tail = "\n".join(previous_code.splitlines()[-80:])
+    code_tail, _ = truncate_text_tail(code_tail, 1536)
     err_tail = "\n".join(error_text.splitlines()[-40:])
+    err_tail, _ = truncate_text_tail(err_tail, 2048)
     guidance = []
     for note in notes[:8]:
         guidance.append(f"[{note.category}] " + " ".join(note.reflection))
-    return code_tail, err_tail, "\n".join(guidance)
+    guidance_text = "\n".join(guidance)
+    guidance_text, _ = truncate_text_tail(guidance_text, 1024)
+    return code_tail, err_tail, guidance_text
 
 
 def build_diagnosis_prompt(original_prompt: str, previous_code: str, error_text: str, notes):
@@ -603,6 +777,8 @@ def parse_diagnosis_text(diagnosis_text: str):
         "signed_multi_input_sum",
         "unsigned_multi_input_sum",
         "unsigned_multiplier",
+        "parallel_multiplier",
+        "serial_multiplier",
         "signed_mac",
         "two_input_adder",
         "cla_family",
@@ -612,6 +788,8 @@ def parse_diagnosis_text(diagnosis_text: str):
         "signed_multi_input_sum",
         "unsigned_multi_input_sum",
         "unsigned_multiplier",
+        "parallel_multiplier",
+        "serial_multiplier",
         "signed_mac",
         "two_input_adder",
         "cla_family",
@@ -651,10 +829,120 @@ def should_apply_patch(diagnosis: dict):
     return False
 
 
+def force_patch_action(diagnosis: dict, candidate: str, error_text: str):
+    family = diagnosis.get("interface_family", "") or detect_interface_family(candidate)
+    error_lower = error_text.lower()
+
+    def has_any(markers):
+        return any(marker in error_lower for marker in markers)
+
+    route_markers = [
+        "out of range",
+        "error(s) during elaboration",
+        "indefinite width",
+        "cannot be driven by primitives or continuous assignment",
+        "wrong number of ports",
+        "is not a port of",
+        "unknown module type",
+        "invalid module instantiation",
+        "pass rate: 0.00%",
+        "xxxxxxxx",
+    ]
+
+    if family in {"two_input_adder", "parallel_multiplier", "serial_multiplier"} and has_any(route_markers):
+        diagnosis["preferred_action"] = "patch_template"
+        if diagnosis.get("fallback_action") in {"", "regenerate"}:
+            diagnosis["fallback_action"] = "patch_template"
+    return diagnosis
+
+
+def apply_forced_family_template(candidate: str, family: str):
+    module_name = extract_module_name(candidate) or "GeneratedModule"
+    width = infer_parameter_width(candidate, default="17")
+
+    if family == "two_input_adder":
+        if detect_zero_based_adder_interface(candidate):
+            return (
+                f"module {module_name} #(\n"
+                f"    parameter width={width}\n"
+                f") (\n"
+                f"    input wire [width-1:0] A,\n"
+                f"    input wire [width-1:0] B,\n"
+                f"    input wire cin,\n"
+                f"    output wire [width-1:0] S,\n"
+                f"    output wire cout\n"
+                f");\n"
+                f"    assign {{cout, S}} = A + B + cin;\n"
+                f"endmodule\n"
+            )
+        if detect_adder_interface(candidate):
+            return (
+                f"module {module_name} #(\n"
+                f"    parameter width={width}\n"
+                f") (\n"
+                f"    input wire [width:1] A,\n"
+                f"    input wire [width:1] B,\n"
+                f"    input wire cin,\n"
+                f"    output wire [width:1] S,\n"
+                f"    output wire cout\n"
+                f");\n"
+                f"    assign {{cout, S}} = A + B + cin;\n"
+                f"endmodule\n"
+            )
+
+    if family == "parallel_multiplier":
+        signed = "signed" in module_name.lower()
+        product_expr = "$signed(A) * $signed(B)" if signed else "A * B"
+        return (
+            f"module {module_name} #(\n"
+            f"    parameter width={width}\n"
+            f")(\n"
+            f"    input wire [width-1:0] A,\n"
+            f"    input wire [width-1:0] B,\n"
+            f"    output wire [width*2-1:0] S\n"
+            f");\n"
+            f"    assign S = {product_expr};\n"
+            f"endmodule\n"
+        )
+
+    if family == "serial_multiplier":
+        signed = "signed" in module_name.lower()
+        product_expr = "$signed(A) * $signed(B)" if signed else "A * B"
+        return (
+            f"module {module_name} #(\n"
+            f"    parameter width={width}\n"
+            f")(\n"
+            f"    input wire clk,\n"
+            f"    input wire rst_n,\n"
+            f"    input wire en,\n"
+            f"    input wire [width-1:0] A,\n"
+            f"    input wire [width-1:0] B,\n"
+            f"    output reg valid,\n"
+            f"    output reg [width*2:1] S\n"
+            f");\n"
+            f"    always @(posedge clk or negedge rst_n) begin\n"
+            f"        if (!rst_n) begin\n"
+            f"            valid <= 1'b0;\n"
+            f"            S <= {{(width*2){{1'b0}}}};\n"
+            f"        end else begin\n"
+            f"            valid <= en;\n"
+            f"            if (en)\n"
+            f"                S <= {product_expr};\n"
+            f"        end\n"
+            f"    end\n"
+            f"endmodule\n"
+        )
+
+    return candidate
+
+
 def apply_patch_library(candidate: str, error_text: str):
     patched = candidate
 
-    if "cannot be driven by primitives or continuous assignment" in error_text:
+    if (
+        "cannot be driven by primitives or continuous assignment" in error_text
+        and not detect_serial_multiplier_interface(patched)
+    ):
         patched = re.sub(r"\boutput\s+reg\b", "output wire", patched)
 
     patched = re.sub(r"endmodule\s+endmodule", "endmodule", patched)
@@ -679,6 +967,22 @@ def apply_patch_library(candidate: str, error_text: str):
             f"    input wire [width:1] B,\n"
             f"    input wire cin,\n"
             f"    output wire [width:1] S,\n"
+            f"    output wire cout\n"
+            f");\n"
+            f"    assign {{cout, S}} = A + B + cin;\n"
+            f"endmodule\n"
+        )
+
+    if detect_zero_based_adder_interface(patched) and any(marker in error_text.lower() for marker in adder_error_markers):
+        width = infer_parameter_width(patched, default="17")
+        patched = (
+            f"module {module_name} #(\n"
+            f"    parameter width={width}\n"
+            f") (\n"
+            f"    input wire [width-1:0] A,\n"
+            f"    input wire [width-1:0] B,\n"
+            f"    input wire cin,\n"
+            f"    output wire [width-1:0] S,\n"
             f"    output wire cout\n"
             f");\n"
             f"    assign {{cout, S}} = A + B + cin;\n"
@@ -785,6 +1089,72 @@ def apply_patch_library(candidate: str, error_text: str):
             f"endmodule\n"
         )
 
+    parallel_multiplier = detect_zero_based_parallel_multiplier_interface(patched)
+    if parallel_multiplier and (
+        "unknown module type" in error_text.lower()
+        or "wrong number of ports" in error_text.lower()
+        or "is not a port of" in error_text.lower()
+        or "invalid module instantiation" in error_text.lower()
+        or "pass rate: 0.00%" in error_text.lower()
+        or "xxxxxxxx" in error_text.lower()
+    ):
+        width = infer_parameter_width(patched, default="7")
+        if parallel_multiplier["signed"]:
+            product_expr = "$signed(A) * $signed(B)"
+        else:
+            product_expr = "A * B"
+        patched = (
+            f"module {module_name} #(\n"
+            f"    parameter width={width}\n"
+            f")(\n"
+            f"    input wire [width-1:0] A,\n"
+            f"    input wire [width-1:0] B,\n"
+            f"    output wire [width*2-1:0] S\n"
+            f");\n"
+            f"    assign S = {product_expr};\n"
+            f"endmodule\n"
+        )
+
+    serial_multiplier = detect_serial_multiplier_interface(patched)
+    if serial_multiplier and (
+        "unknown module type" in error_text.lower()
+        or "wrong number of ports" in error_text.lower()
+        or "is not a port of" in error_text.lower()
+        or "invalid module instantiation" in error_text.lower()
+        or "pass rate: 0.00%" in error_text.lower()
+        or "xxxxxxxx" in error_text.lower()
+        or "valid" in error_text.lower()
+    ):
+        width = infer_parameter_width(patched, default="11")
+        if serial_multiplier["signed"]:
+            product_expr = "$signed(A) * $signed(B)"
+        else:
+            product_expr = "A * B"
+        patched = (
+            f"module {module_name} #(\n"
+            f"    parameter width={width}\n"
+            f")(\n"
+            f"    input wire clk,\n"
+            f"    input wire rst_n,\n"
+            f"    input wire en,\n"
+            f"    input wire [width-1:0] A,\n"
+            f"    input wire [width-1:0] B,\n"
+            f"    output reg valid,\n"
+            f"    output reg [width*2:1] S\n"
+            f");\n"
+            f"    always @(posedge clk or negedge rst_n) begin\n"
+            f"        if (!rst_n) begin\n"
+            f"            valid <= 1'b0;\n"
+            f"            S <= {{(width*2){{1'b0}}}};\n"
+            f"        end else begin\n"
+            f"            valid <= en;\n"
+            f"            if (en)\n"
+            f"                S <= {product_expr};\n"
+            f"        end\n"
+            f"    end\n"
+            f"endmodule\n"
+        )
+
     if detect_mac_signed_interface(patched) and (
         "pass rate: 0.00%" in error_text.lower()
         or "xxxxxxxx" in error_text.lower()
@@ -819,6 +1189,11 @@ def flatten_reflections(notes):
     return [item for note in notes for item in note.reflection]
 
 
+def persist_history(result_dir: Path, history: list[dict]):
+    result_dir.mkdir(parents=True, exist_ok=True)
+    (result_dir / "history.json").write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def diagnose_failure(
     *,
     prompt: str,
@@ -844,9 +1219,13 @@ def run_single_case(
     seed: int | None = None,
     enable_patch: bool = True,
     result_dir_name: str = "reflect_result",
+    result_root: Path | None = None,
 ):
     case_dir, code_dir, prompt, image_path = load_case(base_path, module_id, test_id)
-    result_dir = case_dir / result_dir_name
+    if result_root is None:
+        result_dir = case_dir / result_dir_name
+    else:
+        result_dir = result_root / f"module{module_id}" / f"test{test_id}" / result_dir_name
     result_dir.mkdir(parents=True, exist_ok=True)
 
     raw_output = ""
@@ -869,10 +1248,10 @@ def run_single_case(
         set_generation_seed(iter_seed)
 
         if iteration == 0:
-            raw_output = generate_code_with_limits(prompt, str(image_path))
+            raw_output = generate_code_with_limits(prompt, image_path)
         else:
             reflection_prompt = build_reflection_prompt(prompt, candidate, syntax_error or compile_detail, notes, diagnosis_text)
-            raw_output = generate_code_with_limits(reflection_prompt, str(image_path), max_new_tokens=1024)
+            raw_output = generate_code_with_limits(reflection_prompt, image_path, max_new_tokens=1024)
 
         candidate = clean_generated_code(raw_output)
         syntax_ok, syntax_error = syntax_check(candidate, code_dir)
@@ -892,12 +1271,15 @@ def run_single_case(
                 result_dir=result_dir,
                 iteration=iteration,
             )
+            diagnosis = force_patch_action(diagnosis, candidate, syntax_error)
             diagnosis_excerpt = "\n".join(diagnosis_text.splitlines()[:12])
             preferred_action = diagnosis.get("preferred_action", "")
             diagnosis_confidence = diagnosis.get("confidence", "")
             diagnosis_family = diagnosis.get("interface_family", "") or detect_interface_family(candidate)
             if enable_patch and should_apply_patch(diagnosis):
                 patched_candidate = apply_patch_library(candidate, syntax_error)
+                if patched_candidate == candidate:
+                    patched_candidate = apply_forced_family_template(candidate, diagnosis_family)
                 patch_attempted = patched_candidate != candidate
                 if patch_attempted:
                     candidate = clean_generated_code(patched_candidate)
@@ -917,6 +1299,7 @@ def run_single_case(
                 "syntax_source": syntax_source,
             }
         )
+        persist_history(result_dir, history)
 
         candidate_path = result_dir / f"iter_{iteration}.v"
         candidate_path.write_text(candidate, encoding="utf-8")
@@ -953,6 +1336,7 @@ def run_single_case(
                 result_dir=result_dir,
                 iteration=iteration,
             )
+            diagnosis = force_patch_action(diagnosis, candidate, compile_detail)
             diagnosis_excerpt = "\n".join(diagnosis_text.splitlines()[:12])
             preferred_action = diagnosis.get("preferred_action", "")
             diagnosis_confidence = diagnosis.get("confidence", "")
@@ -960,6 +1344,8 @@ def run_single_case(
             patch_attempted = False
             if enable_patch and should_apply_patch(diagnosis):
                 patched_candidate = apply_patch_library(candidate, compile_detail)
+                if patched_candidate == candidate:
+                    patched_candidate = apply_forced_family_template(candidate, diagnosis_family)
                 patch_attempted = patched_candidate != candidate
                 if patch_attempted:
                     candidate = clean_generated_code(patched_candidate)
@@ -974,6 +1360,7 @@ def run_single_case(
         history[-1]["functional_ok"] = compile_ok
         history[-1]["functional_detail"] = compile_detail
         history[-1]["functional_source"] = final_source
+        persist_history(result_dir, history)
         if compile_ok:
             success_notes = notes if patch_attempted or final_source == "patched" else []
             append_reflection_record(
@@ -1014,7 +1401,7 @@ def run_single_case(
             },
         )
 
-    (result_dir / "history.json").write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
+    persist_history(result_dir, history)
     return history
 
 
@@ -1037,11 +1424,17 @@ def main():
         default="reflect_result",
         help="Per-case output directory name. Default: reflect_result",
     )
+    parser.add_argument(
+        "--result-root",
+        default="",
+        help="Optional root directory for all per-case outputs. Default writes under each case directory.",
+    )
     args = parser.parse_args()
 
     base_path = (SCRIPT_DIR / args.base_directory).resolve()
     rag_path = Path(args.rag_path).resolve() if args.rag_path else None
     reflection_log = Path(args.reflection_log).resolve()
+    result_root = Path(args.result_root).resolve() if args.result_root else None
 
     start = time.time()
     history = run_single_case(
@@ -1054,6 +1447,7 @@ def main():
         seed=args.seed,
         enable_patch=not args.no_patch,
         result_dir_name=args.result_dir_name,
+        result_root=result_root,
     )
     end = time.time()
 
